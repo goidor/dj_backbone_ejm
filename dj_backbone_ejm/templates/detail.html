@@ -1,0 +1,49 @@
+<!doctype html>
+
+{% load url from future %}
+
+<html lang="es">
+  <head>
+    <title>Django + Backbone.js</title>
+
+    <link rel="stylesheet" href="{{ STATIC_URL }}/css/bootstrap.min.css" type="text/css" media="screen" charset="utf-8">
+    
+    <script src="{{ STATIC_URL }}js/vendor/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/vendor/underscore-min.js"></script>
+    <script src="{{ STATIC_URL }}js/vendor/backbone-min.js"></script>
+    <script src="{{ STATIC_URL }}js/vendor/bootstrap.min.js"></script>
+  </head>
+
+  <body id="app">
+    <div class="container">
+      <div class="row">
+        <div class="page_header">
+          <h2 id="titulo"><a href="/">Simple Blog</a> <small>con Django + Backbone.js</small></h2>
+        </div>
+
+        <div class="col-md-8" id="entry">
+          <div class="entry"> <!-- Capa mostrar los datos con Backbone -->
+
+            <!-- // Imprimiendo variables en el template con Underscore -->
+            <script type="text/template" id="detailEntry">
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title"> <%= title %> <small> <%= date %> </small> </h3>
+                  </div>
+                  <div class="panel-body">
+                    <%= body %>
+                  </div>
+                  <div class="panel-footer"> <small> <%= user %> </small> </div>
+                </div>
+            </script>
+
+          </div>
+        </div>
+
+      </div> <!-- row -->
+
+      {% include 'entryDetail.html' %}
+    </div> <!-- container -->
+
+  </body>
+</html>

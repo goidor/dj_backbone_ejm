@@ -1,0 +1,46 @@
+<script type="text/javascript" charset="utf-8">
+  // Definición del modelo
+  var Entry = Backbone.Model.extend({
+    urlRoot: "{% url 'backbone:entries_entry' %}",
+  });
+
+  // Colección
+  var EntryCollection = Backbone.Collection.extend({
+    model: Entry,
+    url: "{% url 'backbone:entries_entry' %}",
+  });
+
+  var allEntry = new EntryCollection(); // Invocando la Colección
+
+  // Vista para mostrar las entradas apenas sean agregadas
+  var Entrada = Backbone.View.extend({
+    el: '#app', 
+
+    initialize: function(){
+      allEntry.on('add', this.seeEntries);
+
+      allEntry.fetch();
+    },
+
+    seeEntries: function(modelo) {
+      var view = new SeeEntriesView({model:modelo});
+
+      // Invoca el metodo render de SeeEntriesView para ver los cambios en el template
+      $('.entries').append(view.render().$el);
+    }
+
+  });
+
+  // Vista para mostrar en el template
+  var SeeEntriesView = Backbone.View.extend({
+    template: _.template( $('#tplSeeEntries').html() ),
+
+    // Con esta funcion coloco los datos en el elemento tplSeeEntries del template
+    render: function(){
+      this.$el.html( this.template(this.model.toJSON()) );
+      return this;
+    }
+  });
+
+  var entriesView = new Entrada();
+</script>
